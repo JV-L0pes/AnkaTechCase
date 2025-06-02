@@ -12,16 +12,4 @@ Sistema de gestão de carteiras de investimento desenvolvido para o processo sel
 ## ⚡ Execução Rápida
 
 ```bash
-1. Banco
-docker-compose up db -d
-
-# 2. Backend
-cd backend
-npm install
-npx prisma db push
-npm run dev
-
-# 3. Frontend
-cd frontend  
-npm install
-npm run dev
+docker-compose up --build
