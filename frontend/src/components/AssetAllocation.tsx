@@ -208,7 +208,7 @@ export function AssetAllocation() {
                   ) : (
                     <div className="text-center py-8">
                       <p className="text-gray-500">Nenhum ativo alocado para este cliente ainda</p>
-                      <p className="text-sm text-gray-400">Use o botão "Nova Alocação" para começar</p>
+                      <p className="text-sm text-gray-400">Use o botão &quot;Nova Alocação&quot; para começar</p>
                     </div>
                   )}
                 </div>

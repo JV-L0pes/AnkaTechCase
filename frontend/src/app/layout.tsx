@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClients';
 import { TrendingUp, Menu } from 'lucide-react';
+import Link from 'next/link';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -36,24 +37,24 @@ export default function RootLayout({
                   </div>
                   
                   <nav className="hidden md:flex space-x-8">
-                    <a 
+                    <Link 
                       href="/" 
                       className="text-gray-700 hover:text-orange-600 px-4 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-orange-200"
                     >
                       Clientes
-                    </a>
-                    <a 
+                    </Link>
+                    <Link 
                       href="/oportunidades" 
                       className="text-gray-700 hover:text-orange-600 px-4 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-orange-200"
                     >
                       Oportunidades
-                    </a>
-                    <a 
+                    </Link>
+                    <Link 
                       href="/carteiras" 
                       className="text-gray-700 hover:text-orange-600 px-4 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-orange-200"
                     >
                       Carteiras
-                    </a>
+                    </Link>
                   </nav>
 
                   <div className="md:hidden">
