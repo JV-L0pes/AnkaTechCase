@@ -8,8 +8,8 @@ WORKDIR /app
 # Copiar package files
 COPY package*.json ./
 
-# Instalar dependências
-RUN npm ci --only=production
+# Instalar dependências (incluindo dev)
+RUN npm ci
 
 # Copiar prisma schema primeiro
 COPY prisma ./prisma/
@@ -22,6 +22,9 @@ COPY . .
 
 # Build da aplicação
 RUN npm run build
+
+# Remover dependências de desenvolvimento para imagem final mais enxuta
+RUN npm prune --production
 
 # Expor porta
 EXPOSE 3001

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Banco MySQL
   db:
@@ -11,6 +9,7 @@ services:
       MYSQL_DATABASE: ankaflow_db
       MYSQL_USER: anka_user
       MYSQL_PASSWORD: anka123
+      TZ: America/Sao_Paulo
     ports:
       - "3306:3306"
     volumes:
@@ -18,9 +17,7 @@ services:
     networks:
       - anka_network
     command: >
-      --default-authentication-plugin=mysql_native_password
       --bind-address=0.0.0.0
-      --skip-name-resolve
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
       interval: 10s
