@@ -1,7 +1,7 @@
-
+version: '3.8'
 
 services:
-  # Banco MySQL AnkaFlow
+  # Banco MySQL
   db:
     image: mysql:8.0
     container_name: ankaflow_db
@@ -21,13 +21,11 @@ services:
       --default-authentication-plugin=mysql_native_password
       --bind-address=0.0.0.0
       --skip-name-resolve
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_unicode_ci
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
       start_period: 30s
 
   # Backend AnkaFlow
@@ -38,9 +36,9 @@ services:
     container_name: ankaflow_backend
     restart: unless-stopped
     environment:
-      DATABASE_URL: "mysql://anka_user:anka123@db:3306/ankaflow_db"
+      DATABASE_URL: "mysql://root:root123@db:3306/ankaflow_db"
       PORT: 3001
-      NODE_ENV: development
+      NODE_ENV: production
     ports:
       - "3001:3001"
     depends_on:
@@ -48,43 +46,47 @@ services:
         condition: service_healthy
     networks:
       - anka_network
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    command: >
+      sh -c "
+        echo 'Aguardando banco de dados...' &&
+        sleep 15 &&
+        echo 'Gerando cliente Prisma...' &&
+        npx prisma generate &&
+        echo 'Criando tabelas...' &&
+        npx prisma db push --accept-data-loss &&
+        echo 'Iniciando servidor...' &&
+        npm start
+      "
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
 
-  # Frontend AnkaFlow (será configurado depois)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: ankaflow_frontend
-  #   restart: unless-stopped
-  #   environment:
-  #     NEXT_PUBLIC_API_URL: http://localhost:3001/api
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     backend:
-  #       condition: service_healthy
-  #   networks:
-  #     - anka_network
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
-  #     - /app/.next
+  # Frontend AnkaFlow
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ankaflow_frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api
+      NEXT_PUBLIC_APP_NAME: "AnkaFlow"
+      NEXT_PUBLIC_APP_VERSION: "1.0.0"
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - anka_network
 
-# Volumes persistentes
 volumes:
   ankaflow_mysql_data:
     driver: local
 
-# Rede AnkaFlow
 networks:
   anka_network:
     driver: bridge

@@ -6,7 +6,9 @@
     "scripts": {
         "dev": "nodemon --exec ts-node src/server.ts",
         "build": "tsc",
-        "start": "node dist/server.js"
+        "start": "node dist/server.js",
+        "db:generate": "npx prisma generate",
+        "db:push": "npx prisma db push"
     },
     "keywords": [
         "ankaflow",
