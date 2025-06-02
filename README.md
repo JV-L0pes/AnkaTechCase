@@ -52,16 +52,3 @@ Troubleshooting
 Se der erro:
 bashdocker-compose down -v
 docker-compose up --build
-
----
-
-## Principais Melhorias
-
-1. **Health Checks**: Garante que serviços iniciem na ordem correta
-2. **Comandos automáticos**: Backend roda prisma generate e db push automaticamente
-3. **Aguarda dependências**: Frontend só inicia após backend estar pronto
-4. **Builds otimizados**: Dockerfiles para produção
-5. **Restart policies**: Containers reiniciam automaticamente se falharem
-6. **Scripts corretos**: package.json com comandos de build e start
-
-Com essas correções, `docker-compose up --build` vai funcionar automaticamente!
