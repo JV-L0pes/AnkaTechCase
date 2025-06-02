@@ -12,4 +12,6 @@ Sistema de gestão de carteiras de investimento desenvolvido para o processo sel
 ## ⚡ Execução Rápida
 
 ```bash
+git clone https://github.com/[SEU_USUARIO]/ankaflow.git
+cd ankaflow
 docker-compose up --build
