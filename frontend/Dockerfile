@@ -12,8 +12,8 @@ RUN npm ci
 COPY . .
 
 # Ignorar erros de TypeScript no build (temporário)
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 # Build com tratamento de erro
 RUN npm run build || npm run build -- --debug

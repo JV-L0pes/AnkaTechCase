@@ -17,7 +17,7 @@ services:
     networks:
       - anka_network
     command: >
-      --bind-address=0.0.0.0
+      --bind-address=0.0.0.0 --host_cache_size=0
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
       interval: 10s

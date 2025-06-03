@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
 import { useClients, useDeleteClient } from '@/hooks/useClients';
 import { Client } from '@/types';
 import { ClientForm } from './ClientForm';
@@ -90,6 +90,9 @@ export function ClientList() {
           <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle>Novo Cliente</DialogTitle>
+              <DialogDescription>
+                Preencha os dados para cadastrar um novo cliente.
+              </DialogDescription>
             </DialogHeader>
             <ClientForm client={editingClient || undefined} onSuccess={handleFormSuccess} />
           </DialogContent>
@@ -120,6 +123,9 @@ export function ClientList() {
               <DialogTitle>
                 {editingClient ? 'Editar Cliente' : 'Novo Cliente'}
               </DialogTitle>
+              <DialogDescription>
+                {editingClient ? 'Edite os dados do cliente.' : 'Preencha os dados para cadastrar um novo cliente.'}
+              </DialogDescription>
             </DialogHeader>
             <ClientForm client={editingClient || undefined} onSuccess={handleFormSuccess} />
           </DialogContent>
@@ -178,6 +184,9 @@ export function ClientList() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Detalhes do Cliente</DialogTitle>
+            <DialogDescription>
+              Veja as informações detalhadas do cliente selecionado.
+            </DialogDescription>
           </DialogHeader>
           {viewingClient && (
             <div className="space-y-6">

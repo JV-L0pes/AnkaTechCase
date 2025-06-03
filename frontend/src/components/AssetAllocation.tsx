@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
 import { useClients } from '@/hooks/useClients';
 import { useFixedAssets, useCreateAsset, useClientAssets } from '@/hooks/useAssets';
 import { Plus, Wallet } from 'lucide-react';
@@ -80,6 +80,9 @@ export function AssetAllocation() {
           <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle>Alocar Ativo na Carteira</DialogTitle>
+              <DialogDescription>
+                Preencha os dados para alocar um novo ativo na carteira do cliente.
+              </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
